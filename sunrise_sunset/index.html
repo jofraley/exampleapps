@@ -1349,18 +1349,18 @@ fetch("https://api.sunrise-sunset.org/json?lat=-34.9285&lng=138.6007&formatted=0
     console.log(now);
     var t = now.getTime();
     
-    
     //var dUTC = d.getUTCDate();
-    format_date(add_minutes(now, 870), "todaydate");
-    format_date(add_minutes(new Date(myJson.results.civil_twilight_begin), 870), "firstlight");
+    //format_date(add_minutes(now, 870), "todaydate");
+    //format_date(add_minutes(new Date(myJson.results.civil_twilight_begin), 870), "firstlight");
     format_date(add_minutes(new Date(myJson.results.sunrise), 870), "sunrise");
     format_date(add_minutes(new Date(myJson.results.sunset), 870), "sunset");
-    format_date(add_minutes(new Date(myJson.results.civil_twilight_end), 870), "lastlight");
+    //format_date(add_minutes(new Date(myJson.results.civil_twilight_end), 870), "lastlight");
     var day_length = new Date(myJson.results.day_length * 1000).toISOString().substr(11, 8);
     var parts = day_length.split(":");
 
     var x = document.getElementById("daylength");
-    x.innerHTML = "Day length: " + parts[0] + " hours, " + parts[1] + " minutes, " + parts[2] + " seconds";
+    //x.innerHTML = "Day length: " + parts[0] + " hours, " + parts[1] + " minutes, " + parts[2] + " seconds";
+    x.innerHTML = "Day length: " + parts[0] + " hours, " + parts[1] + " minutes, ";
   })
   .catch(function (error) {
     console.log("Error: " + error);
@@ -1368,20 +1368,20 @@ fetch("https://api.sunrise-sunset.org/json?lat=-34.9285&lng=138.6007&formatted=0
 </script>
 
 <div id="today">
-      <div class="date">
-        <!--<h2>Today</h2>-->
-        <!--<p id="todaydate">October 15, 2020. Current time: 2:06 am <span>(Australia/Adelaide timezone)</span></p>-->
-      </div>
+      <!--<div class="date">
+        <h2>Today</h2>
+        <p id="todaydate">October 15, 2020. Current time: 2:06 am <span>(Australia/Adelaide timezone)</span></p>
+      </div>-->
     <div class="data">
       <div class="sunrise">
         <img src="https://ndirt.maps.arcgis.com/sharing/rest/content/items/540f7ab215ee46d098364375f4671522/data" width="100px" alt="Sun rising over the horizon">
-        <p class="twilight" id="firstlight" style="color:whitesmoke;">First light a</p>
+        <!--<p class="twilight" id="firstlight" style="color:whitesmoke;">First light a</p>-->
         <p style="color:whitesmoke;">Sunrise time: <strong class="time" id='sunrise'>6:31:22 AM</strong></p>
       </div>
       <div class="sunset">
         <img src="https://ndirt.maps.arcgis.com/sharing/rest/content/items/a3f9493e7cf940a28d840032d6ccc2ea/data" width="100px" alt="Sun setting behind the horizon">
         <p style="color:whitesmoke;">Sunset time: <strong class="time" id='sunset'>7:30:53 PM</strong></p>
-        <p class="twilight" id='lastlight' style="color:whitesmoke;">Last light at 7:56:43 PM</p>
+        <!--<p class="twilight" id='lastlight' style="color:whitesmoke;">Last light at 7:56:43 PM</p>-->
       </div>
       <div class="extra">
         <p class="daylength" id='daylength' style="color:whitesmoke;">Day length: <strong>12 hours, 59 minutes</strong></p>
