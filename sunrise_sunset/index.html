@@ -1,1 +1,1395 @@
 
+<!DOCTYPE html>
+<html>
+    <body>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+<title>Sunrise/Sunset</title>
+<style>
+    body{
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-family: 'Lato', sans-serif;
+}
+p{
+  line-height: 20px;
+}
+.clear{
+  clear:both;
+}
+#content, #header, #footer{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 24px;
+  overflow: hidden;
+}
+#header {
+  overflow: visible;
+}
+#headerc, #footerc{
+  background-color: #043050;
+  color: white;
+}
+#headerc {
+  margin-bottom: 24px;
+  padding: 8px 0 16px 0;
+}
+#header a, #footer a{
+  color: white;
+  text-decoration: none;
+}
+#header a:hover{
+  color: #f9bf0f;
+}
+#footer a:hover{
+  text-decoration: underline;
+}
+#logo, #logof{
+  font-size: 24px;
+  font-family: 'Happy Monkey', cursive;
+  text-decoration: none;
+  display: block;
+  background: url('logo-v1_62x47.svg') 0 10px no-repeat;
+  background-size: 40px 30px;
+  padding-left: 50px;
+  padding-top: 12px;
+  padding-bottom: 10px;
+}
+#header a#logo:hover{
+  text-decoration: none;
+}
+#header ul{
+  margin: 0;
+  margin-left: -8px;
+  padding: 0;
+}
+#header ul li{
+  display: block;
+  list-style: none;
+  padding: 8px;
+	float: left;
+}
+
+#footer ul{
+  margin: 10px 0 0;
+  padding: 0;
+}
+#footer li{
+  list-style: none;
+  display: inline-block;
+  padding: 6px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #6e8fa8;
+  width: 45%;
+  margin-right: 4%;
+	font-size: 14px;
+}
+#footer a{
+  color: #8db5d2;
+  color: #6e8fa8;
+}
+#footer h2{
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+  font-size: 13px;
+  background: url('bckg-h2footer.gif') repeat-x center;
+}
+#footer span{
+  padding-right: 20px;
+  background-color: #043050;
+	font-weight: bold;
+	font-size: 16px;
+}
+#footer{
+  padding: 24px;
+  margin-top: 60px;
+}
+#this{
+  margin-bottom: 24px;
+  color: #6e8fa8;
+}
+#this p#logop{
+  margin: -10px 0 0;
+}
+#footer a#logof:hover{
+  text-decoration: none;
+}
+#this p#desc{
+  color: white;
+}
+#topcities{
+  margin-bottom: 24px;
+  overflow: hidden;
+  /*margin: 0 100px;*/
+}
+#footer #topcities li{
+  width: 40%;
+  margin-right: 0;
+}
+#footer #topcities li.thco{
+  width: 18%;
+}
+#links{
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+#credits{
+  clear: both;
+  color: #6e8fa8;
+	font-size: 14px;
+}
+#copy{
+  color: #6e8fa8;
+	font-size: 14px;
+}
+#credits img{
+  vertical-align: middle;
+}
+#credits p#by{
+  text-align: right;
+  margin-top: 10px;
+}
+
+#content a{
+  color: #6e8fa8;
+}
+
+#single{
+  max-width: 650px;
+}
+#single p{
+  line-height: 150%;
+}
+
+#homesearchc{
+  /*background: url('home.jpg') no-repeat 0 50%;
+  background-size: cover;*/
+/*  padding: 110px 0;*/
+  background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;
+  padding: 24px 0;
+  margin-top: -24px;
+  color: white;
+  text-shadow: 0px 1px 2px #000000;
+}
+#homesearch{
+  padding: 0 24px;
+  margin: 0 auto;
+  max-width: 980px;
+  height: 190px;
+  text-align: center;
+}
+#homesearch h1{
+  font-size: 20px;
+  text-transform: uppercase;
+}
+#homesearch p#caption{
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+#homesearch input {
+  border: 0;
+  border-radius: 5px;
+}
+#homesearch input[type='text']{
+  text-align: center;
+  margin-bottom: 8px;
+  padding: 15px 10px 15px 20px;
+  width: calc(100% - 30px);
+  color: #a1aab9;
+  height: 30px;
+}
+#homesearch input[type='submit']{
+  background-color: #f9bf0f;
+  padding: 18px;
+  text-align: center;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #fff;
+  width: 100%;
+  -webkit-appearance: none;
+}
+#homesearch ::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #98aab8;
+}
+#homesearch :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #98aab8;
+    opacity:  1;
+}
+#homesearch ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #98aab8;
+    opacity:  1;
+}
+#homesearch :-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #98aab8;
+}
+#homesearch #photocredits{
+  text-shadow: none;
+  opacity: 0.8;
+  font-size: 85%;
+  margin-top: 70px;
+  /*padding-top: 50px;
+  margin-bottom: -70px;*/
+}
+#homesearch a{
+  color: white;
+  text-decoration: none;
+}
+#homesearch a:hover{
+  text-decoration: underline;
+}
+#header #search {
+  margin-top: -4px;
+}
+.subscribe {
+  width: 280px;
+}
+#header #search input[type="text"] {
+  padding: 0 15px;
+  height: 30px;
+  border: none;
+  border-radius: 3px 0 0 3px;
+  margin-right: 8px;
+}
+#header #search input[type="submit"] {
+  background: #f9bf0f url('search.gif') no-repeat;
+  background-position: top 10px left 10px;
+  background-size: 12px 12px;
+  border-radius: 0 3px 3px 0;
+  text-align: left;
+  margin-left: -8px;
+  width: auto;
+  max-width: 102px;
+  color: #fff;
+  padding: 0 12px 0 30px;
+  height: 30px;
+  border: none;
+  -webkit-appearance: none; -moz-appearance: none;
+  display: block;
+  float: right;
+}
+.subscribe input[type="text"] {
+  padding: 0 15px;
+  height: 30px;
+  border-radius: 3px 0 0 3px;
+  margin-right: 0px;
+  width: 172px;
+  border: 1px solid #ddd;
+  border-right: none;
+}
+.subscribe input[type="submit"] {
+  background-color: #f9bf0f;
+  border-radius: 0 3px 3px 0;
+  text-align: left;
+  margin-left: 0;
+  width: 76px;
+  color: #fff;
+  padding: 0 12px;
+  height: 32px;
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: block;
+  float: right;
+}
+
+#intro{
+  color: #98aab8;
+  margin: 40px 0;
+  line-height: 160%;
+}
+#sun-graph {
+  display: block;
+  margin: 30px auto;
+  width: 100%;
+  max-width: 900px;
+}
+#intro h3 {
+  margin: 20px 0 10px 0;
+  text-transform: uppercase;
+  color: #257fc2;
+  font-size: 13px;
+}
+#about {
+  font-weight: bold;
+  margin-bottom: 30px;
+  font-size: 15px;
+  line-height: 180%;
+}
+
+#whatfor{
+  padding: 20px 0 0 0;
+  overflow: hidden;
+}
+#whatfor h2 {
+  color: #005fa0;
+  font-size: 20px;
+  text-transform: uppercase;
+  text-align: center;
+  border-top: 1px solid #eef2f5;
+  padding: 60px 0 30px 0;
+}
+.use{
+  min-height: 180px;
+  padding: 16px;
+  text-align: center;
+}
+.use h3{
+  color: #257fc2;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+.use p{
+  color: #98aab8;
+}
+
+#states, #cities{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+}
+#states li, #cities li{
+  margin: 5px 0;
+  padding: 0;
+}
+ul li a{
+  color: #98aab8;
+  text-decoration: none;
+}
+#content ul li a:hover{
+  color: #cf2b23;
+}
+
+#calendartitle span{
+  display: block;
+  font-size: 80%;
+}
+#calendarthings{
+  max-width: 650px;
+}
+
+#calendarfilters input{
+  width: 180px;
+  max-width: 180px;
+}
+#calendarfilters input[type='submit']{
+  width: 90px;
+}
+
+#calendarfilters{
+  margin-bottom: 8px;
+  text-align: right;
+}
+
+#calendarfilters #location {
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+#calendarfilters #month {}
+
+#calendarfilters #year {}
+
+#calendar {
+  border-collapse: collapse;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+#calendar th {
+  border-top: 1px solid #ccc;
+}
+
+#calendar td.day {
+  border: 1px solid #ccc;
+  padding: 0;
+}
+#calendar td.today {
+  background-color: rgb(255, 255, 180);
+  border: 1px solid #ccc;
+  padding: 0;
+}
+#calendar .today .number {
+  background-color: #DFEDF7;
+}
+
+#calendar .number {
+  display: block;
+  padding: 6px 0;
+  font-weight: bold;
+  text-align: center;
+  background-color: #d8e0e6;
+  color: #4d738f;
+}
+
+#calendar .sunrise {
+  display: block;
+  margin-top: 8px;
+  padding-bottom: 40px;
+  padding-left: 36px;
+  font-size: 12px;
+  background: url('sunrise-v1_24x17.svg') no-repeat 6px 0;
+  background-size: 24px 17px;
+}
+
+#calendar .sunset {
+  display: block;
+  margin-bottom: 6px;
+  padding-bottom: 2px;
+  padding-left: 36px;
+  font-size: 12px;
+  background: url('sunset-v1_24x17RED.svg') no-repeat 6px 0;
+  background-size: 24px 17px;
+}
+
+#location-box {
+  float: left;
+  width: 300px;
+  position: relative;
+}
+
+.pagination {
+  margin: 30px 0 40px 0;
+  float: left;
+  width: 100%;
+}
+.pagination ul{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pagination li{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  float: left;
+}
+.pagination li a{
+  padding: 4px 10px;
+  background: #eee;
+  border-radius: 2px;
+  margin: 4px;
+}
+.pagination li.current{
+  padding: 4px 10px;
+  background: #eee;
+  border-radius: 2px;
+  margin: -4px 4px;
+  background: #f1bf43;
+  color: white;
+}
+
+@media only screen and (max-width: 479px) {
+
+  #calendar table,
+  #calendar thead,
+  #calendar tbody,
+  #calendar th,
+  #calendar td,
+  #calendar tr {
+    display: block;
+  }
+
+  #calendar thead {
+    display: none;
+  }
+
+  #calendar tr {
+    border: 1px solid #ccc;
+  }
+
+  #calendar td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+  }
+
+  #calendar td:before {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 11px;
+    white-space: nowrap;
+    color: #4d738f;
+  }
+
+  #calendar td[colspan] {
+    display: none;
+  }
+
+  #calendar .number {
+    text-align: left;
+    padding-left: 8px;
+  }
+
+  #calendar .sunrise {
+    padding-bottom: 8px;
+  }
+
+  #calendar .sunset {
+    position: absolute;
+    right: 8px;
+    top: 37px;
+  }
+
+  #calendar td:nth-of-type(1):before { content: "SUN"; }
+  #calendar td:nth-of-type(2):before { content: "MON"; }
+  #calendar td:nth-of-type(3):before { content: "TUE"; }
+  #calendar td:nth-of-type(4):before { content: "WED"; }
+  #calendar td:nth-of-type(5):before { content: "THU"; }
+  #calendar td:nth-of-type(6):before { content: "FRI"; }
+  #calendar td:nth-of-type(7):before { content: "SAT"; }
+
+  #calendar td[colspan="1"] + td:before { content: "MON"; }
+  #calendar td[colspan="1"] + td + td:before { content: "TUE"; }
+  #calendar td[colspan="1"] + td + td + td:before { content: "WED"; }
+  #calendar td[colspan="1"] + td + td + td + td:before { content: "THU"; }
+  #calendar td[colspan="1"] + td + td + td + td + td:before { content: "FRI"; }
+  #calendar td[colspan="1"] + td + td + td + td + td + td:before { content: "SAT"; }
+
+  #calendar td[colspan="2"] + td:before { content: "TUE"; }
+  #calendar td[colspan="2"] + td + td:before { content: "WED"; }
+  #calendar td[colspan="2"] + td + td + td:before { content: "THU"; }
+  #calendar td[colspan="2"] + td + td + td + td:before { content: "FRI"; }
+  #calendar td[colspan="2"] + td + td + td + td + td:before { content: "SAT"; }
+
+  #calendar td[colspan="3"] + td:before { content: "WED"; }
+  #calendar td[colspan="3"] + td + td:before { content: "THU"; }
+  #calendar td[colspan="3"] + td + td + td:before { content: "FRI"; }
+  #calendar td[colspan="3"] + td + td + td + td:before { content: "SAT"; }
+
+  #calendar td[colspan="4"] + td:before { content: "THU"; }
+  #calendar td[colspan="4"] + td + td:before { content: "FRI"; }
+  #calendar td[colspan="4"] + td + td + td:before { content: "SAT"; }
+
+  #calendar td[colspan="5"] + td:before { content: "FRI"; }
+  #calendar td[colspan="5"] + td + td:before { content: "SAT"; }
+
+  #calendar td[colspan="6"] + td:before { content: "SAT"; }
+
+}
+
+@media only screen and (min-width: 480px) and (max-width: 640px) {
+
+  #calendar .sunrise {
+    padding: 21px 0 12px 0;
+    background-position: top center;
+    text-align: center;
+  }
+
+  #calendar .sunset {
+    padding: 21px 0 0 0;
+    background-position: top center;
+    text-align: center;
+  }
+
+}
+
+#calendarexplanation{
+  margin-bottom: 24px;
+}
+
+#sidebar {
+  max-width: 300px;
+}
+
+#sidebar img {
+  height: auto;
+  width: 100%;
+}
+
+#contactform input[type="text"]{
+  border: 1px solid #edeceb;
+  margin-bottom: 10px;
+  padding: 12px;
+  font-size: 13px;
+  font-family: 'Lato', sans-serif;
+  margin-right: 15px;
+  float: left;
+  background: #fcfcfc;
+  outline: none;
+  padding: 10px;
+  width: 235px;
+}
+#contactform textarea{
+  border: 1px solid #edeceb;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 13px;
+  font-family: 'Lato', sans-serif;
+  background: #fcfcfc;
+  outline: none;
+  max-width: 92%;
+  min-height: 100px;
+  resize: vertical;
+}
+#contactform .btn{
+  background: #ffc31a;
+  background: #e3ab00;
+  color: #fff;
+  text-transform: uppercase;
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  padding: 16px 32px;
+  border: 0;
+  border-radius: 2px;
+  cursor: pointer;
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    border: 1px solid rgba(81, 203, 238, 1);
+}
+
+#twodays {
+  float: left;
+  width: 100%;
+  max-width: 624px;
+  margin-bottom: 35px;
+}
+#locationfacts {
+  float: right;
+  width: 100%;
+  max-width: 336px;
+  color: #fff;
+  margin-bottom: 40px;
+  margin-top: 19px;
+  border-radius: 3px;
+  text-align: center;
+}
+#locationfacts img {
+  width: 100%;
+}
+#locationfacts p#currenttime {
+  font-size: 120%;
+  margin: 0;
+  padding: 10px 0;
+  text-align: center;
+}
+#locationfacts ul {
+  list-style: none;
+  padding: 15px 20px 20px;
+  margin: 0;
+  background-color: #043050;
+}
+#locationfacts li {
+  color: #6e8fa8;
+  margin: 3px 0;
+}
+#locationfacts strong{
+  color: white;
+}
+
+#countries {
+  padding-left: 0;
+}
+#countries li {
+  list-style-type: none;
+  margin: 10px 0;
+}
+#today, #tomorrow {
+  clear: both;
+  width: 100%;
+  max-width: 600px;
+  float: left;
+  padding-top: 20px;
+}
+#today img, #tomorrow img {
+  margin-bottom: 10px;
+}
+#today .sunrise, #today .sunset, #tomorrow .sunrise, #tomorrow .sunset {
+  width: 180px;
+  text-align: center;
+  margin: 0 auto;
+  padding-top: 30px;
+}
+#today p, #tomorrow p {
+  margin: 6px 0 3px 0;
+}
+#twodays .time{
+  display: block;
+  font-size: 140%;
+	line-height: 130%;
+}
+.sunset .time{
+  color: #CE2C27;
+}
+.sunrise .time{
+  color: #CFA22B;
+}
+#twodays .twilight{
+  color: #98aab8;
+}
+#today p.daylength, #tomorrow p.daylength {
+  clear: both;
+  text-align: center;
+  padding-top:15px;
+  margin: 0 0 5px 0;
+}
+#today p.sunsetpred, #tomorrow p.sunsetpred {
+  color: #98aab8;
+  margin: 0;
+  text-align: center;
+}
+#twodays .date {
+  border-top: 1px solid #b6ccdd;
+  padding-top: 20px;
+}
+#twodays .data {
+  float: left;
+  width: 100%;
+  max-width:600px;
+}
+#twodays .extra{
+  background: #f4f8fb;
+  border-radius: 3px;
+  margin: 20px 0 5px 0;
+  padding: 5px 12px 20px 012px;
+  clear: both;
+  float: left;
+  width: calc(100% - 24px);
+}
+#twodays h2{
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 14px;
+  float: left;
+  margin: 8px 10px 0 0;
+	color: white;
+  background: #005fa0;
+  border-radius: 3px;
+  padding: 3px 10px;
+}
+#twodays .span{
+	font-size: 13px;
+	color: #aaa;
+}
+
+table#month {
+  margin-bottom: 40px;
+  margin-top: 24px;
+  width: 100%;
+  border: 1px solid #eeeeee;
+  clear: both;
+	font-size: 14px;
+}
+
+table#month .headers th {
+  padding: 9px 0;
+  font-weight: bold;
+  background-color: #fff;
+  color: #005fa0;
+}
+
+table#month tr:nth-of-type(odd) {
+  background-color: #f4f8fb;
+}
+
+table#month td {
+  border: none;
+  padding: 9px 0;
+  text-align: center;
+}
+
+table#month .day th {
+  color: #005fa0;
+  text-align: center;
+  padding: 9px 0;
+}
+table#month .day.today, table#month .day.today td:nth-child(8),
+table#month .day.today td:nth-child(9), table#month .day.today td:nth-child(10),
+table#month .day.today td:nth-child(11) {
+  background-color: rgb(255, 255, 180);
+}
+table#month td span.sunrise, table#month td span.sunset { font-weight: 700 }
+#pagenotfound {
+  background: #f4f8fb url(img/notfound.svg) no-repeat bottom -150px right -230px;
+  background-size: 662px 472px;
+  border-radius: 3px;
+  padding: 60px;
+  text-align: center;
+  width: 630px;
+  margin: 50px auto;
+}
+#pagenotfound a {
+  background: #f9bf0f;
+  color: #fff;
+  text-transform: uppercase;
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  padding: 8px 16px;
+  display: inline-block;
+  margin: 10px 0;
+  text-decoration: none;
+  border-radius: 2px;
+}
+
+.monthsnav{
+  clear: both;
+  width: 100%;
+  float: left;
+}
+.prevmonth{
+  float: left;
+  text-align: left;
+  width: 50%;
+}
+.nextmonth{
+  float: right;
+  text-align: right;
+  width: 50%;
+}
+
+@media only screen and (max-width: 640px) {
+
+  table#month {
+    border-collapse: collapse;
+  }
+
+  table#month,
+  table#month thead,
+  table#month tbody,
+  table#month th,
+  table#month td,
+  table#month tr {
+    display: block;
+  }
+
+  table#month thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  table#month .headers {
+    display: none;
+  }
+
+  table#month td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+    padding-right: 8px;
+    text-align: right;
+  }
+
+  table#month td:before {
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 8px;
+    left: 8px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  table#month td:nth-of-type(1):before { content: "Twilight start"; }
+  table#month td:nth-of-type(2):before { content: "Sunrise"; }
+  table#month td:nth-of-type(3):before { content: "Sunset"; }
+  table#month td:nth-of-type(4):before { content: "Twilight end"; }
+  table#month td:nth-of-type(5):before { content: "Day length"; }
+  table#month td:nth-of-type(6):before { content: "Solar noon"; }
+  table#month td:nth-of-type(7):before { content: "Nautical twilight start"; }
+  table#month td:nth-of-type(8):before { content: "Nautical twilight end"; }
+  table#month td:nth-of-type(9):before { content: "Astronomical twilight start"; }
+  table#month td:nth-of-type(10):before { content: "Astronomical twilight end"; }
+
+}
+
+@media only screen and (min-width: 641px) {
+
+  table#month tr:nth-of-type(odd) td.light {
+    background-color: #fcfcfc;
+  }
+
+  table#month .day td:nth-child(8),
+  table#month .day td:nth-child(9),
+  table#month .day td:nth-child(10),
+  table#month .day td:nth-child(11) {
+    width: 70px;
+    background-color: #fff;
+    color: #888;
+  }
+
+}
+
+#sschart {
+  float: left;
+  width: 100% !important;
+  max-width: 624px !important;
+  height: auto  !important;
+}
+
+.also{
+  margin-top: 40px;
+}
+#content #search input{
+  font-size: 14px;
+  font-family: 'Lato', sans-serif;
+  border: 1px solid #6e8fa8;
+  border-radius: 1px;
+  vertical-align: middle;
+}
+#content #search input[type='text']{
+  padding: 5px 5px 5px 5px;
+  width: 97%;
+  max-width: 350px;
+  border-radius: 3px 0 0 3px;
+  margin-bottom: 8px;
+  border: 1px solid #f9bf0f;
+  border-right: none;
+  margin-right: -2px;
+}
+#content #search input[type='submit']{
+  background: #f9bf0f url('search.gif') no-repeat 26px 9px;
+  background-size: 12px 12px;
+  padding: 7px 28px 6px 50px;
+  text-align: left;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: white;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border: 0;
+  border-radius: 0 3px 3px 0;
+  margin-bottom: 8px;
+}
+
+#ads{
+  text-align: center;
+}
+
+header #search input[type="submit"] {
+  text-transform: uppercase;
+}
+
+
+@media only screen and (min-width: 440px) {
+
+  #headerc {
+    padding: 0;
+  }
+
+  #header {;
+    position: relative;
+  }
+
+  #header ul {
+    position: absolute;
+    right: 16px;
+    top: 7px;
+  }
+
+  #homesearch h1{
+    font-size: 24px;
+  }
+
+  .use {
+    float: left;
+    width: calc(50% - 32px);
+  }
+
+  #today .sunrise, #today .sunset, #tomorrow .sunrise, #tomorrow .sunset {
+    float: left;
+    width: 50%;
+  }
+
+}
+
+@media only screen and (min-width: 480px) {
+
+  #homesearch input{
+    font-size: 25px;
+  }
+
+  #homesearch input[type='text']{
+    padding: 11px 10px 12px 12px;
+    text-align: left;
+    width: 60%;
+    max-width: 400px;
+  }
+
+  #homesearch input[type='submit']{
+    background: #f9bf0f url('search.gif') no-repeat 26px 20px;
+    background-size: 12px 12px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    text-align: left;
+    margin-left: -8px;
+    width: auto;
+    padding: 18px 28px 18px 50px;
+    position: relative;
+    top: -4px;
+  }
+
+  #states, #cities{
+    columns: 3;
+    -webkit-columns: 3;
+    -moz-columns: 3;
+  }
+
+}
+
+
+@media only screen and (min-width: 592px) {
+
+  #topcities {
+    float: left;
+    max-width: 48%;
+  }
+
+  #links {
+    float: right;
+    max-width: 48%;
+  }
+
+  #homesearchc{
+    padding: 55px 0;
+  }
+
+}
+
+@media only screen and (min-width: 700px) {
+
+  .use {
+    width: calc(33.33333% - 32px);
+  }
+
+  #states, #cities{
+    columns: 4;
+    -webkit-columns: 4;
+    -moz-columns: 4;
+  }
+
+}
+
+@media only screen and (min-width: 960px) {
+
+  #calendarthings {
+    float: left;
+  }
+
+  #sidebar {
+    float: right;
+  }
+
+}
+
+@media only screen and (min-width: 980px) {
+
+  #footer {
+    padding: 64px 24px 48px 24px;
+  }
+
+  #this {
+    float: left;
+    width: 250px;
+  }
+
+  #topcities {
+    float: left;
+    width: 375px;
+    margin: 0 56px 0 49px;
+  }
+
+  #links {
+    float: left;
+    width: 250px;
+  }
+
+  #homesearchc{
+    padding: 80px 0;
+  }
+
+  .use {
+    float: left;
+    width: calc(20% - 32px);
+  }
+}
+
+#apidoc h3 {
+  margin-top: 40px;
+}
+#apidoc pre {
+  padding: 6px 10px;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  overflow: auto;
+  color: #007000;
+}
+#apidoc li {
+  margin-bottom: 6px;
+}
+
+@media only screen and (max-width: 580px) {
+  #pagenotfound { width: 90%; margin: 20px auto -30px; padding: 60px 0; }
+  #homesearch #photocredits {
+    margin-top: 25px;
+    margin-bottom: 0;
+  }
+  #content #search input[type='text'] {
+    width: calc(100% - 140px);
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  #logo, #logof {
+    font-size: 20px;
+    display: inline-block;
+    background: url('logo-v1_62x47.svg') 0 8px no-repeat;
+    background-size: 40px 30px;
+  }
+  #calendarfilters #location, #calendarfilters input {
+    width: 90%;
+    padding: 0 5%;
+    height: 40px;
+    font-size: 16px;
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+  #calendarfilters #month, #calendarfilters #year {
+    width: 100%;
+    font-size: 16px;
+    padding: 0 5%;
+    height: 40px;
+    margin-bottom: 10px;
+  }
+  #header ul {
+    position: relative;
+  }
+  #header #search {
+    display: none;
+    position: absolute;
+    right: 0; top: 7px;
+    width: 100%;
+  }
+  #header #search input[type="text"] {
+    width: calc(100% - 72px);
+    background: #fff;
+    font-size: 14px;
+    height: 31px;
+  }
+  #header #search input[type="submit"] {
+    padding-top: 3px;
+    height: 31px;
+    width: 30px;
+    color: #f9bf0f;
+    background-position: center;
+  }
+  #mobile-searchbtn {
+    width: 30px; height: 29px;
+    float: right; margin-top: 3px;
+    background: #f9bf0f url('search.gif') no-repeat;
+    background-position: center;
+    background-size: 12px 12px;
+    border-radius: 3px;
+    font-size: 0;
+    z-index: 99;
+    position: absolute;
+    top: -39px;
+    right: 2px;
+    height: 31px;
+  }
+  #mobile-searchbtn.on {
+    background: #f9bf0f url('/img/mobile-search-close.jpg') no-repeat;
+    background-position: center;
+    background-size: 12px 12px;
+  }
+  #contactform input[type="text"], #contactform input[type="email"] {
+    width: 92%;
+  }
+  #contactform .btn {
+    width: 98%;
+  }
+  #header ul li:nth-of-type(2) {
+    margin-left: -15px;
+  }
+  #states, #cities {
+    text-align: center;
+    columns: 1;
+    -webkit-columns: 1;
+    -moz-columns: 1;
+  }
+  h1, h2, h3, h4  {
+    text-align: center;
+  }
+	#footer h2 span{
+		padding-left: 20px;
+	}
+  #states li a, #cities li a {
+    font-size: 16px;
+    line-height: 26px;
+  }
+  #gallery .sunphoto {
+    width: 138px;
+    margin: 10px;
+  }
+  .sunphoto img {
+    width: 138px;
+  }
+}
+input::-moz-focus-inner { 
+	border: 0; 
+	padding: 0; 
+	margin-top: 0px; 
+	margin-bottom: 0;
+}
+
+#gallery {
+  position: relative;
+  min-height: 264px;
+  width: calc(100% - 30px);
+  background-color: #043050;
+  padding: 15px;
+  float: left;
+  clear: both;
+  margin: 0 0 40px 0;
+}
+#gallery .loading {
+  position: absolute;
+  top: 145px;
+  left: 42%;
+  margin: 0;
+  text-align: center;
+  color: #6e8fa8;
+  font-size: 16px;
+  padding-left: 24px;
+  background-image: url(/img/loading.gif);
+  background-repeat: no-repeat;
+  background-position: 0 5px;
+}
+#gallery h2 {
+  color: white;
+  margin: 0;
+  margin: 10px 0 10px 15px;
+  font-weight: normal;
+}
+#gallery p {
+  color: #6e8fa8;
+  margin: 0 0 10px 15px;
+}
+.sunphoto {
+  float: left;
+  margin: 16px;
+  border: 3px solid white;
+}
+
+
+</style>
+</head>
+<script>
+    var add_minutes = function(dt,minutes){
+        return new Date(dt.getTime() + minutes*60000);
+    }
+
+    var format_date = function(dt, theElement){
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var d = new Date(dt);
+        var hr = d.getHours();
+        var min = d.getMinutes();
+        var sec = d.getSeconds();
+        if (min < 10) {
+            min = "0" + min;
+        }
+        
+        var ampm = "am";
+        if( hr > 12 ) {
+            hr -= 12;
+            ampm = "pm";
+        }
+        console.log(hr);
+        var date = d.getDate();
+        var month = months[d.getMonth()];
+        var year = d.getFullYear();
+        if (theElement == 'todaydate') {
+            var x = document.getElementById(theElement);
+            x.innerHTML = month + " " + d.getDate() + " , " + year + ". Current time: " + hr + ":" + min + " " + ampm + " Adelaide, Australia"   ;
+        }
+        else if (theElement == 'firstlight'){
+            var x = document.getElementById(theElement);
+            x.innerHTML = "First light at " + hr + ":" + min + ":" + sec + " " + ampm.toUpperCase();
+        }
+        else if (theElement == 'sunrise'){
+            var x = document.getElementById(theElement);
+            x.innerHTML = hr + ":" + min + ":" + sec + " " + ampm.toUpperCase();
+        }
+        else if (theElement == 'sunset'){
+            var x = document.getElementById(theElement);
+            x.innerHTML = hr + ":" + min + ":" + sec + " " + ampm.toUpperCase();
+        }
+        else if (theElement == 'lastlight'){
+            var x = document.getElementById(theElement);
+            x.innerHTML = "Last light at " + hr + ":" + min + ":" + sec + " " + ampm.toUpperCase();
+        }
+        
+    }
+fetch("https://api.sunrise-sunset.org/json?lat=-34.9285&lng=138.6007&formatted=0")
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (myJson) {
+    console.log(myJson);
+    //console.log(add_minutes(new Date(myJson.results.sunrise), 630).toString());
+    var now = new Date();
+    console.log(now);
+    var t = now.getTime();
+    
+    
+    //var dUTC = d.getUTCDate();
+    format_date(add_minutes(now, 870), "todaydate");
+    format_date(add_minutes(new Date(myJson.results.civil_twilight_begin), 870), "firstlight");
+    format_date(add_minutes(new Date(myJson.results.sunrise), 870), "sunrise");
+    format_date(add_minutes(new Date(myJson.results.sunset), 870), "sunset");
+    format_date(add_minutes(new Date(myJson.results.civil_twilight_end), 870), "lastlight");
+    var day_length = new Date(myJson.results.day_length * 1000).toISOString().substr(11, 8);
+    var parts = day_length.split(":");
+
+    var x = document.getElementById("daylength");
+    x.innerHTML = "Day length: " + parts[0] + " hours, " + parts[1] + " minutes, " + parts[2] + " seconds";
+  })
+  .catch(function (error) {
+    console.log("Error: " + error);
+  });
+</script>
+
+<div id="today">
+      <div class="date">
+        <!--<h2>Today</h2>-->
+        <p id="todaydate">October 15, 2020. Current time: 2:06 am <span>(Australia/Adelaide timezone)</span></p>
+      </div>
+    <div class="data">
+      <div class="sunrise">
+        <img src="https://ndirt.maps.arcgis.com/sharing/rest/content/items/540f7ab215ee46d098364375f4671522/data" width="140px" alt="Sun rising over the horizon">
+        <p class="twilight" id="firstlight">First light a</p>
+        <p>Sunrise time: <strong class="time" id='sunrise'>6:31:22 AM</strong></p>
+      </div>
+      <div class="sunset">
+        <img src="https://ndirt.maps.arcgis.com/sharing/rest/content/items/a3f9493e7cf940a28d840032d6ccc2ea/data" width="140px" alt="Sun setting behind the horizon">
+        <p>Sunset time: <strong class="time" id='sunset'>7:30:53 PM</strong></p>
+        <p class="twilight" id='lastlight'>Last light at 7:56:43 PM</p>
+      </div>
+      <div class="extra">
+        <p class="daylength" id='daylength'>Day length: <strong>12 hours, 59 minutes</strong></p>
+        <p class="sunsetpred" ><a href="https://sunrise-sunset.org/">Sunrise Sunset API</a></p>
+
+      </div>
+    </div>
+
+</body>
+</hmtl>
