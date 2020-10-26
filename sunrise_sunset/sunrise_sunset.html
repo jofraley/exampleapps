@@ -7,7 +7,7 @@
       name="viewport"
       content="initial-scale=1,maximum-scale=1,user-scalable=no"
     />
-<title>Sunrise-Sunset</title>
+<title>Sunrise/Sunset</title>
 <style>
     body{
   margin: 0;
@@ -414,18 +414,18 @@ fetch(theLocationURL)
     //var dUTC = d.getUTCDate();
     //format_date(add_minutes(now, 870), "todaydate");
     //format_date(add_minutes(new Date(myJson.results.civil_twilight_begin), 870), "firstlight");
-    fetch("https://api.geonames.org/timezoneJSON?lat=" + lat + "&lng=" + long + "&username=jofraley")
+    fetch("https://secure.geonames.org/timezoneJSON?lat=" + lat + "&lng=" + long + "&username=jofraley")
       .then(function(response) {
         return response.json();
       })
       .then(function(timeInfoJson) {
         var theTime = new Date(timeInfoJson.time);
-        console.log(theTime);
+        console.log("The Time: " + theTime);
         //var sunriseTime = new Date(myJson.results.sunrise);
         var t = new Date();
         //console.log(sunriseTime);
         var diffMs = theTime - t;
-        var diffMins = Math.floor((diffMs/1000)/60);
+        var diffMins = Math.floor((diffMs/1000)/60) + 1;
         console.log("Diff mins: " + diffMins);
         format_date(add_minutes(new Date(myJson.results.sunrise), diffMins), "sunrise");
         format_date(add_minutes(new Date(myJson.results.sunset), diffMins), "sunset");
