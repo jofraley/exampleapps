@@ -150,7 +150,7 @@ function deleteCookie(name) {
 	  //var svgDoc;
 	  //var svgDoc1;
 	  var theCookie;
-	  var questiontype = [1,0,1,1,1,1,1,0,1,0,1,1,1];
+	  var questiontype = [1,1,1,1,1,1,1,0,1,0,1,1,1];
 
 document.addEventListener('DOMContentLoaded', function(event) {
   //the event occurred
