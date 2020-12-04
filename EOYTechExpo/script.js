@@ -12,6 +12,29 @@ function nextQuestion() {
 	else {
 		document.getElementById("compassrose").style.display = "none";
 		document.getElementById("truefalse").style.display = "inline";
+		console.log(svgDoc1);
+		if (typeof svgDoc1 === 'undefined') {
+			const b = document.getElementById("truefalse");
+		b.addEventListener("load",function(){
+			//alert("loaded");
+			// get the inner DOM of compassrose.svg
+			svgDoc1 = b.contentDocument;
+			// get the inner element by id
+			east = svgDoc1.getElementById("east");
+			// add behaviour
+			east.addEventListener("mousedown",function(){
+					console.log("Inside mousedown east");
+					currentAnswer = "east";
+					updateColors(east);
+			}, false);
+			west = svgDoc1.getElementById("west");
+			// add behaviour
+			west.addEventListener("mousedown",function(){
+				currentAnswer = "west";
+					updateColors(west);
+			}, false);
+		}, false);
+		}
 	}
 	const currentQuestionText = document.getElementById("currentQuestion");
 	currentQuestionText.innerHTML = "Question " + currentQuestion.toString();
@@ -55,7 +78,7 @@ function submitAnswer() {
 				  }
 			  }
 			}
-		  }
+		  };
 		xhr.send(params);
 		//var theResult = setCookie(theCookie,'true',2);
 		nextQuestion();
@@ -82,6 +105,9 @@ function resetColors() {
 	northeast.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
 	southwest.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
 	northwest.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
+	
+	west.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
+	east.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
 	
 }
 function setCookie(c_name,value,exdays) {
@@ -121,21 +147,21 @@ function deleteCookie(name) {
 	  var northeast;
 	  var west;
 	  var east;
-	  var svgDoc;
+	  //var svgDoc;
+	  //var svgDoc1;
 	  var theCookie;
-	  var questiontype = [1,1,1,1,1,1,1,0,1,0,1,1,1]
-if (getCookie('visited')) {
-    //deleteCookie('visited');
-	console.log("visited");
-} else {
-    var theResult = setCookie('visited','true',2); //2 days expiration
-	console.log(theResult);
-}	
+	  var questiontype = [1,0,1,1,1,1,1,0,1,0,1,1,1];
 
 document.addEventListener('DOMContentLoaded', function(event) {
   //the event occurred
-	  console.log("Document loaded");
-	  
+	  if (getCookie('visited')) {
+		//deleteCookie('visited');
+		console.log("visited");
+		} else {
+			var theResult = setCookie('visited','true',2); //2 days expiration
+		    console.log("Cookie: " + theResult);
+		}	
+
 	  //document.addEventListener('contextmenu', event => event.preventDefault());
 	  
       // Get team name //
