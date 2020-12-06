@@ -2,9 +2,11 @@
 
 
 function nextQuestion() {
-	console.log("NextQuestion: " + currentAnswer + currentQuestion.toString());
+	//console.log("NextQuestion: " + currentAnswer + currentQuestion.toString());
+	alert("Answer to question " + currentQuestion + " submitted. Close dialog and wait for next question.")
 	currentQuestion = currentQuestion + 1;
 	var type = questiontype[currentQuestion];
+	document.getElementById("submitBtn").disabled = true;
 	if (type == 1) {
 		document.getElementById("compassrose").style.display = "inline";
 		document.getElementById("truefalse").style.display = "none";
@@ -39,24 +41,34 @@ function nextQuestion() {
 	const currentQuestionText = document.getElementById("currentQuestion");
 	currentQuestionText.innerHTML = "Question " + currentQuestion.toString();
 	resetColors();
-	if (currentQuestion == 13) {
+	if (currentQuestion == 14) {
+		document.getElementById("currentQuestion").style.visibility = "hidden";
+		document.getElementById("submitBtn").style.visibility = "hidden";
+		document.getElementById("compassrose").style.display = "none";
+		document.getElementById("truefalse").style.display = "none";
 		document.getElementById("submitBtn").disabled = true;
-		document.getElementById("endText").innerHTML = "End of Quiz, Thanks for Participating.";
+		document.getElementById("endText").innerHTML = "End of Quiz, Thanks for Participating!";
 	}
 	
 }
 
 function submitAnswer() {
 	console.log("Inside Submit Answer");
+	
 	if (typeof teamName === 'undefined') {
 		alert("You must select a TEAM NAME!");
 	}
+	//else if (getCookie(theCookie) {
+	//	console.log("Already Visited");
+	//}
 	else {
 		// submit answer to feature service
-		var viewURL = "https://services.arcgis.com/lA2FZKuu26Fips7U/ArcGIS/rest/services/EOYTechExpoChallenge_Q" + currentQuestion.toString() + "/FeatureServer/0/addFeatures";
+		
+		 var viewURL = "https://services.arcgis.com/lA2FZKuu26Fips7U/ArcGIS/rest/services/TechExpoChallenge_Q" + currentQuestion.toString() + "/FeatureServer/0/addFeatures";
+		console.log(viewURL);
 		var xhr = new XMLHttpRequest();
 		var features = "features={'attributes':{'team':'" + teamName +"','questions':'" + currentAnswer + currentQuestion.toString() + "'}}";
-		console.log(currentAnswer);
+		console.log("Current Answer: " + currentAnswer);
 		var rollbackOnFailure = "rollbackOnFailure=true";
 		var f = "f=json";
 		var params = [f,features,rollbackOnFailure].join("&");
@@ -80,13 +92,15 @@ function submitAnswer() {
 			}
 		  };
 		xhr.send(params);
-		//var theResult = setCookie(theCookie,'true',2);
+		theCookie = "EOYTechExpoChallenge_Q" + currentQuestion.toString();
+		var theResult = setCookie(theCookie,'true',2);
 		nextQuestion();
 	}
 }
 
 function updateColors(currentAnswer) {
     console.log("in updateColors");
+	document.getElementById("submitBtn").disabled = false;
 	southeast.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
 	northeast.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
 	southwest.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
@@ -106,8 +120,10 @@ function resetColors() {
 	southwest.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
 	northwest.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
 	
-	west.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
-	east.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
+	if (east) {
+		east.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
+		west.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
+	}
 	
 }
 function setCookie(c_name,value,exdays) {
@@ -139,7 +155,7 @@ function deleteCookie(name) {
 
 //variables
 	  var teamName;
-	  var currentQuestion = 0;
+	  var currentQuestion = 1;
 	  var currentAnswer; 
 	  var southwest;
 	  var northwest;
@@ -147,11 +163,12 @@ function deleteCookie(name) {
 	  var northeast;
 	  var west;
 	  var east;
-	  //var svgDoc;
-	  //var svgDoc1;
+	  var svgDoc;
+	  var svgDoc1;
 	  var theCookie;
-	  var questiontype = [1,1,1,1,1,1,1,0,1,0,1,1,1];
-
+	  var questiontype = [0,1,1,1,1,1,1,1,0,1,0,1,0,0];
+	  var theCookie;
+	  
 document.addEventListener('DOMContentLoaded', function(event) {
   //the event occurred
 	  if (getCookie('visited')) {
@@ -163,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		}	
 
 	  //document.addEventListener('contextmenu', event => event.preventDefault());
-	  
+	  document.getElementById("submitBtn").disabled = true;
       // Get team name //
       const selectTN = document.getElementById("select-team-name");
       console.log(selectTN);
@@ -230,6 +247,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 	const submitButton = document.getElementById("submitBtn");
 	submitButton.addEventListener("click", function() {
 		console.log("Submit Button Click");
+		
 		theCookie = "q" + currentQuestion.toString();
 		if(getCookie(theCookie)) {
 			console.log("Cookie Exists, Moving on");
