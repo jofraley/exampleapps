@@ -58,9 +58,10 @@ function submitAnswer() {
 	if (typeof teamName === 'undefined') {
 		alert("You must select a TEAM NAME!");
 	}
-	//else if (getCookie(theCookie) {
-	//	console.log("Already Visited");
-	//}
+
+	if (getCookie(theCookie)) {
+		console.log("Already Visited");
+	}
 	else {
 		// submit answer to feature service
 		
@@ -248,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 	submitButton.addEventListener("click", function() {
 		console.log("Submit Button Click");
 		
-		theCookie = "q" + currentQuestion.toString();
+		theCookie = "EOYTechExpoChallenge_Q" + currentQuestion.toString();
 		if(getCookie(theCookie)) {
 			console.log("Cookie Exists, Moving on");
 			nextQuestion()
@@ -260,4 +261,6 @@ document.addEventListener('DOMContentLoaded', function(event) {
 	});
 });
 })();
+
+
 
