@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- Responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>National Government 2020 Tech Expo Challenge</title>
+    <!-- End Responsive -->
+    <link rel="icon" href="./assets/favicon.ico" sizes="32x32" type="image/vnd.microsoft.icon">
+    
+    <link rel="stylesheet" href="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.2.5/css/calcite-web.min.css">
+<script src="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.2.5/js/calcite-web.min.js"></script>
+    <link rel="stylesheet" href="./styles/main.css">
+
+  </head>
+  <body>
+
+    <div id="header-panel" class="panel panel-dark-blue trailer-half">
+      <div class="font-size-1 avenir-bold text-center">National Government 2020 Tech Expo Challenge</div>
+    </div>
+
+    <div id="select-team-name-panel" class="panel panel-white panel-no-border">
+      <div class="panel panel-dark-blue panel-no-border"></div>
+      <div id="team-name-panel" class="panel panel-dark panel-no-border">
+        <div class="text-center">
+          <label for="team_names" class="font-size-2 avenir-bold-italic text-gray"><b>Select Your Team:</b></label>
+          <div >
+            <select id="select-team-name" class="font-size-0 avenir-bold-italic text-gray">
+              <option value="Select Your Team">Select Your Team</option>
+              <option value="Team 1">Team 1</option>
+              <option value="Team 2">Team 2</option>
+              <option value="Team 3">Team 3</option>
+              <option value="Team 4">Team 4</option>
+              <option value="Team 5">Team 5</option>
+              <option value="Team 6">Team 6</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="select-team-name-panel" class="panel panel-white panel-no-border">
+	 <div id="survey-panel" class="panel panel-dark panel-no-border">
+	  <div class="text-center">
+          <div class="trailer-half">
+             <div id="currentQuestion" class="inline-block padding-left-half font-size-2 avenir-bold-italic">Question 1</div>
+      </div>
+		  <div id="survey123-webform-2" class="panel panel-dark panel-no-padding panel-no-border">
+	         <object data="multiplechoice.svg" type="image/svg+xml"
+         id="compassrose" width="25%" height="25%"></object><br>
+		 <object data="truefalse.svg" type="image/svg+xml"
+         id="truefalse" width="25%" height="25%" style="display:none;"></object><br>
+			<button id="submitBtn" class="text-center btn btn-large btn-blue font-size-1 avenir-bold leader-quarter trailer-half ">Submit</button>
+			<label id="endText" class="inline-block padding-left-half font-size-2 avenir-bold-italic"></div>
+	    </div>
+      </div>
+     </div>
+	 </div>
+
+	<script  src="./script.js"></script>
+	<script src="https://js.arcgis.com/4.17/"></script>
+  </body>
+</html>
