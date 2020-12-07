@@ -58,7 +58,7 @@ function submitAnswer() {
 	if (typeof teamName === 'undefined') {
 		alert("You must select a TEAM NAME!");
 	}
-	if (getCookie(theCookie) {
+	if (getCookie(theCookie)) {
 		console.log("Already Visited");
 	}
 	else {
