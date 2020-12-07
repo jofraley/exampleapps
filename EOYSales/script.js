@@ -58,9 +58,9 @@ function submitAnswer() {
 	if (typeof teamName === 'undefined') {
 		alert("You must select a TEAM NAME!");
 	}
-	//else if (getCookie(theCookie) {
-	//	console.log("Already Visited");
-	//}
+	if (getCookie(theCookie) {
+		console.log("Already Visited");
+	}
 	else {
 		// submit answer to feature service
 		
@@ -92,7 +92,7 @@ function submitAnswer() {
 			}
 		  };
 		xhr.send(params);
-		theCookie = "EOYTechExpoChallenge_Q" + currentQuestion.toString();
+		theCookie = "EOYSalesChallenge_Q" + currentQuestion.toString();
 		var theResult = setCookie(theCookie,'true',2);
 		nextQuestion();
 	}
@@ -100,17 +100,22 @@ function submitAnswer() {
 
 function updateColors(currentAnswer) {
     console.log("in updateColors");
-	document.getElementById("submitBtn").disabled = false;
-	southeast.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
-	northeast.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
-	southwest.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
-	northwest.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
-	
-	if (east) {
-		east.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
-		west.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
+	if (typeof teamName === 'undefined') {
+		alert("You must select a TEAM NAME before you can select an answer!");
 	}
-	currentAnswer.setAttribute("style", "fill:red;stroke:red;fill-opacity:0.75");
+	else {
+		document.getElementById("submitBtn").disabled = false;
+		southeast.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
+		northeast.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
+		southwest.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
+		northwest.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
+	
+		if (east) {
+			east.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
+			west.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
+		}
+		currentAnswer.setAttribute("style", "fill:red;stroke:red;fill-opacity:0.75");
+	}
 }
 
 function resetColors() {
@@ -248,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 	submitButton.addEventListener("click", function() {
 		console.log("Submit Button Click");
 		
-		theCookie = "q" + currentQuestion.toString();
+		theCookie = "EOYSalesChallenge_Q" + currentQuestion.toString();
 		if(getCookie(theCookie)) {
 			console.log("Cookie Exists, Moving on");
 			nextQuestion()
