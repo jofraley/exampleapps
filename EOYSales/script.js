@@ -55,7 +55,7 @@ function nextQuestion() {
 function submitAnswer() {
 	console.log("Inside Submit Answer");
 	
-	if (typeof teamName === 'undefined') {
+	if (typeof teamName === 'undefined'  || teamName == "Select Your Team") {
 		alert("You must select a TEAM NAME!");
 	}
 	if (getCookie(theCookie)) {
@@ -100,7 +100,7 @@ function submitAnswer() {
 
 function updateColors(currentAnswer) {
     console.log("in updateColors");
-	if (typeof teamName === 'undefined') {
+	if (typeof teamName === 'undefined' || teamName == "Select Your Team") {
 		alert("You must select a TEAM NAME before you can select an answer!");
 	}
 	else {
