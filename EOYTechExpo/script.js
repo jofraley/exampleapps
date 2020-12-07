@@ -101,17 +101,22 @@ function submitAnswer() {
 
 function updateColors(currentAnswer) {
     console.log("in updateColors");
-	document.getElementById("submitBtn").disabled = false;
-	southeast.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
-	northeast.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
-	southwest.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
-	northwest.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
-	
-	if (east) {
-		east.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
-		west.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
+	if (typeof teamName === 'undefined') {
+		alert("You must select a TEAM NAME before you can select an answer!");
 	}
-	currentAnswer.setAttribute("style", "fill:red;stroke:red;fill-opacity:0.75");
+	else {
+		document.getElementById("submitBtn").disabled = false;
+		southeast.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
+		northeast.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
+		southwest.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
+		northwest.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
+	
+		if (east) {
+			east.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
+			west.setAttribute("style", "fill:#007ac2;stroke:#007ac2;fill-opacity:0");
+		}
+		currentAnswer.setAttribute("style", "fill:red;stroke:red;fill-opacity:0.75");
+	}
 }
 
 function resetColors() {
@@ -261,6 +266,4 @@ document.addEventListener('DOMContentLoaded', function(event) {
 	});
 });
 })();
-
-
 
