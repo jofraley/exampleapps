@@ -47,7 +47,7 @@ function nextQuestion() {
 		document.getElementById("compassrose").style.display = "none";
 		document.getElementById("truefalse").style.display = "none";
 		document.getElementById("submitBtn").disabled = true;
-		document.getElementById("endText").innerHTML = "End of Quiz, Thanks for Participating!";
+		document.getElementById("endText").innerHTML = "End of quiz. Thanks for Participating!";
 	}
 	
 }
