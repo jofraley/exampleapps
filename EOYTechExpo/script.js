@@ -3,7 +3,7 @@
 
 function nextQuestion() {
 	//console.log("NextQuestion: " + currentAnswer + currentQuestion.toString());
-	alert("Answer to question " + currentQuestion + " submitted. Close dialog and wait for next question.")
+	alert("Answer to question " + currentQuestion + " submitted. Click Ok on this dialog and wait for next question to be read before answering.")
 	currentQuestion = currentQuestion + 1;
 	var type = questiontype[currentQuestion];
 	document.getElementById("submitBtn").disabled = true;
