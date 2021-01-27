@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+ <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+<title>Countdown Timer</title>
+	<link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.17/esri/themes/dark/main.css"
+    />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<style>
+body {
+  font-family: sans-serif;
+  display: grid;
+  height: 100vh;
+  place-items: center;
+}
+
+.base-timer {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.base-timer__svg {
+  transform: scaleX(-1);
+}
+
+.base-timer__circle {
+  fill: none;
+  stroke: none;
+}
+
+.base-timer__path-elapsed {
+  stroke-width: 7px;
+  stroke: grey;
+}
+
+.base-timer__path-remaining {
+  stroke-width: 7px;
+  stroke-linecap: round;
+  transform: rotate(90deg);
+  transform-origin: center;
+  transition: 1s linear all;
+  fill-rule: nonzero;
+  stroke: currentColor;
+}
+
+.base-timer__path-remaining.green {
+  color: rgb(53, 172, 70);
+}
+
+.base-timer__path-remaining.orange {
+  color: rgb(248,152,39);
+}
+
+.base-timer__path-remaining.red {
+  color: rgb(223,41,1);
+}
+
+.base-timer__label {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  color: rgb(223,223,223);
+  font-weight: bold;
+}
+</style>
+<script src="https://js.arcgis.com/4.17/"></script>
+</head>
+<script>
+require ([
+  "esri/identity/OAuthInfo",
+  "esri/identity/IdentityManager"
+], function (OAuthInfo, esriId) {
+
+let timeAmount = GetURLParameter('time');
+let question = GetURLParameter('question');
+let audiofile = GetURLParameter('audio');
+let token;
+let audio;
+
+let questionsViews = ["945386da26ad462b959db3eb6795c907","a6664ee8753a4538a07205c39531303a","90a7dcd6dc264cb781cb1179fa074235","60c03182d594454e9d19b24d6232f337","c68b9f4693b846c0a86be9c871c6c18f","fb3227c76c864ec08b4fadd7f36bcfda","604f8099e0e241758f060e150ae54675","06c58ed093f74ef8bdee309ffea58512","12b4c855a7a0437d96326c586a4dbf7d","692a341ebeda4c5d9ba58c960b5b2c4a","5af0956c166142eeabd84e187f9730fc","17b8b3e8b7ea48c7b09f77852530ce6a","575ece2698d94298ad1719dd24696f66"];
+
+var info = new OAuthInfo({
+          // Swap this ID out with registered application ID
+          appId: "CekCw0p7mNO5iX0V",
+          popup: false
+        });
+        esriId.registerOAuthInfos([info]);
+
+        esriId
+          .checkSignInStatus(info.portalUrl + "/sharing")
+          .then(function() {
+            console.log("signed in");
+			token = info._oAuthCred.token;
+            //displayItems();
+          })
+          .catch(function() {
+            // Anonymous view
+            console.log("catch");
+            //anonPanelElement.style.display = "block";
+            //personalPanelElement.style.display = "none";
+          });
+let creds = esriId.getCredential(info.portalUrl + "/sharing");		  
+
+const FULL_DASH_ARRAY = 283;
+const WARNING_THRESHOLD = 10;
+const ALERT_THRESHOLD = 5;
+
+const COLOR_CODES = {
+  info: {
+    color: "green"
+  },
+  warning: {
+    color: "orange",
+    threshold: WARNING_THRESHOLD
+  },
+  alert: {
+    color: "red",
+    threshold: ALERT_THRESHOLD
+  }
+};
+
+const TIME_LIMIT = timeAmount;
+let timePassed = 0;
+let timeLeft = TIME_LIMIT;
+let timerInterval = null;
+let remainingPathColor = COLOR_CODES.info.color;
+
+//startTimer();
+document.getElementById("app").innerHTML = `
+<div class="base-timer">
+  <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <g class="base-timer__circle">
+      <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
+      <path
+        id="base-timer-path-remaining"
+        stroke-dasharray="283"
+        class="base-timer__path-remaining ${remainingPathColor}"
+        d="
+          M 50, 50
+          m -45, 0
+          a 45,45 0 1,0 90,0
+          a 45,45 0 1,0 -90,0
+        "
+      ></path>
+    </g>
+  </svg>
+  <span id="base-timer-label" class="base-timer__label">${formatTime(
+    timeLeft
+  )}</span>
+</div>
+`;
+let timerBtn = document.getElementById("base-timer-label");
+timerBtn.innerHTML = timeAmount;
+timerBtn.addEventListener("click", () => {
+    console.log(remainingPathColor);
+
+    startTimer();
+  });
+
+
+function onTimesUp() {
+  clearInterval(timerInterval);
+}
+
+function GetURLParameter(sParam) {
+  var sPageURL = window.location.search.substring(1);
+  var sURLVariables = sPageURL.split('&');
+  for (var i = 0; i < sURLVariables.length; i++)
+    {
+      var sParameterName = sURLVariables[i].split('=');
+      if (sParameterName[0] == sParam)
+      {
+        return sParameterName[1];
+      }
+    }
+}
+	
+function startTimer() {
+  play();
+  
+  timerInterval = setInterval(() => {
+    timePassed = timePassed += 1;
+    timeLeft = TIME_LIMIT - timePassed;
+    document.getElementById("base-timer-label").innerHTML = formatTime(
+      timeLeft
+    );
+    setCircleDasharray();
+    setRemainingPathColor(timeLeft);
+
+    if (timeLeft === 0) {
+      onTimesUp();
+      var audioEnd = document.getElementById("audio1");
+	  audio.pause();
+      audioEnd.play();
+      let changeSharing = "https://www.arcgis.com/sharing/rest/content/users/jfraley_ndirt/items/" + questionsViews[question] + "/share";
+      let f = "f=json";
+      let everyone = "everyone=false";
+      let org = "org=false";
+      let token1 = "token=" + token;
+      //console.log(token1);
+      
+      let parameters = [token1,f,everyone,org].join("&");
+      console.log(parameters);
+			let xhr1 = new XMLHttpRequest();
+			xhr1.open("POST", changeSharing, true);
+      xhr1.withCredentials = true;
+			xhr1.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr1.onreadystatechange = function() { // Call a function when the state changes.
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+          let response = JSON.parse(xhr1.responseText);
+          console.log(response);
+          if (response.error){
+			      console.log(JSON.stringify(response.error));
+          } else {
+              if (response){
+                console.log(JSON.stringify(response));
+              }
+              else{
+                console.log("ERROR");
+              }
+          }
+        }
+      }
+			xhr1.send(parameters);
+    }
+  }, 1000);
+}
+function play() {
+	var files = ["20audio1.m4a","20audio4.m4a","30audio23.m4a","20audio6.m4a","20audio7.m4a","20audio9.m4a","20audio11.m4a","20audio14.m4a","30audio23.m4a","20audio15.m4a","20audio16.m4a","20audio17.m4a","20audio18.m4a"]
+    audio = document.getElementById("audio");
+	audio.src = files[audiofile];
+    audio.play();
+}
+
+function formatTime(time) {
+  const minutes = Math.floor(time / 60);
+  let seconds = time % 60;
+
+  if (seconds < 10) {
+    seconds = `0${seconds}`;
+  }
+
+  return `${minutes}:${seconds}`;
+}
+
+function setRemainingPathColor(timeLeft) {
+  const { alert, warning, info } = COLOR_CODES;
+  if (timeLeft <= alert.threshold) {
+    document
+      .getElementById("base-timer-path-remaining")
+      .classList.remove(warning.color);
+    document
+      .getElementById("base-timer-path-remaining")
+      .classList.add(alert.color);
+  } else if (timeLeft <= warning.threshold) {
+    document
+      .getElementById("base-timer-path-remaining")
+      .classList.remove(info.color);
+    document
+      .getElementById("base-timer-path-remaining")
+      .classList.add(warning.color);
+  }
+}
+
+function calculateTimeFraction() {
+  const rawTimeFraction = timeLeft / TIME_LIMIT;
+  return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
+}
+
+function setCircleDasharray() {
+  const circleDasharray = `${(
+    calculateTimeFraction() * FULL_DASH_ARRAY
+  ).toFixed(0)} 283`;
+  document
+    .getElementById("base-timer-path-remaining")
+    .setAttribute("stroke-dasharray", circleDasharray);
+}
+});
+</script>
+<body>
+  <div id="app">
+    <div class="base-timer">
+      <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g class="base-timer__circle">
+          <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
+          <path
+            id="base-timer-path-remaining"
+            stroke-dasharray="283"
+            class="base-timer__path-remaining ${remainingPathColor}"
+            d="
+              M 50, 50
+              m -45, 0
+              a 45,45 0 1,0 90,0
+              a 45,45 0 1,0 -90,0
+            "
+          ></path>
+        </g>
+      </svg>
+      <span id="base-timer-label" class="base-timer__label" >20</span>
+    </div>
+  </div>
+  <audio id="audio" src=""></audio>
+  <audio id="audio1" src="gong.mp3"></audio>
+</body>
+</html>
