@@ -73,7 +73,7 @@
           // Uncomment the next line and update if using your own portal
           portalUrl: "https://defense.esri.com/portal",
           // Uncomment the next line to prevent the user's signed in state from being shared with other apps on the same domain with the same authNamespace value.
-          // authNamespace: "portal_oauth_inline",
+          authNamespace: "portal_oauth_inline",
           popup: false
         });
         esriId.registerOAuthInfos([info]);
@@ -144,7 +144,7 @@
 
   <body>
     <div id="anonymousPanel" style="display: none; padding: 5px; text-align: center;">
-      <span id="sign-in" class="action">Sign In</span> and view your ArcGIS Online items.
+      <span id="sign-in" class="action">Sign In</span> and view your ArcGIS Enterprise items.
     </div>
 
     <div id="personalizedPanel" style="display: none; padding: 5px; text-align: center;">
