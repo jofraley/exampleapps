@@ -100,7 +100,9 @@
         });
 
         function displayItems() {
-          const portal = new Portal();
+          const portal = new Portal({
+            url: "https://defense.esri.com/portal"
+          });
           // Setting authMode to immediate signs the user in once loaded
           portal.authMode = "immediate";
           // Once loaded, user is signed in
