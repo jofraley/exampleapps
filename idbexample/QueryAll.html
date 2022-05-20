@@ -1,0 +1,313 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>IDB Query Examples</title>
+  <script type="module" src="https://js.arcgis.com/calcite-components/1.0.0-beta.81/calcite.esm.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/calcite-components/1.0.0-beta.81/calcite.css" />
+
+  <script src="https://js.arcgis.com/4.23/"></script>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.23/esri/themes/light/main.css" />
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <calcite-shell content-behind>
+    <calcite-shell-panel slot="primary-panel" detached>
+      <calcite-panel heading="TCI Queries">
+        <calcite-block heading="Filters" open>
+          <calcite-label>
+            Indicator
+            <calcite-radio-group id="control-tci-el" width="full">
+              <calcite-radio-group-item value="0" checked>TCI</calcite-radio-group-item>
+              <calcite-radio-group-item value="1">TCI Weighted</calcite-radio-group-item>
+              <calcite-radio-group-item value="2">TCI Spread</calcite-radio-group-item>
+              <calcite-radio-group-item value="3">TCI Persistance</calcite-radio-group-item>
+            </calcite-radio-group>
+          </calcite-label>
+          <calcite-label>
+            <calcite-label>
+              City
+              <calcite-select id="control-city-el">
+                <calcite-option label="Bogota" value="bogota" selected></calcite-option>
+                <calcite-option label="Lima" value="lima"></calcite-option>
+                <calcite-option label="Rio Dejaneiro " value="riodejaneiro"></calcite-option>
+                <calcite-option label="Sao Paulo " value="saopaulo"></calcite-option>
+              </calcite-select>
+            </calcite-label>
+            <calcite-label>
+              Year
+              <calcite-select id="control-year-el">
+                <calcite-option label="2019" value="2019"></calcite-option>
+              </calcite-select>
+            </calcite-label>
+            <calcite-label>
+              Month
+              <calcite-select id="control-month-el">
+                <calcite-option label="January" value="01"></calcite-option>
+                <calcite-option label="February" value="02"></calcite-option>
+                <calcite-option label="March" value="03"></calcite-option>
+                <calcite-option label="April" value="04"></calcite-option>
+                <calcite-option label="May" value="05"></calcite-option>
+                <calcite-option label="June" value="06"></calcite-option>
+                <calcite-option label="July" value="07"></calcite-option>
+                <calcite-option label="August" value="08"></calcite-option>
+                <calcite-option label="September" value="09"></calcite-option>
+                <calcite-option label="October" value="10"></calcite-option>
+                <calcite-option label="November" value="11"></calcite-option>
+                <calcite-option label="December" value="12"></calcite-option>
+              </calcite-select>
+            </calcite-label>
+            <calcite-label>
+              Weekday
+              <calcite-radio-group id="control-weekday-el" width="full">
+                <calcite-radio-group-item value="WD" checked>Weekday</calcite-radio-group-item>
+                <calcite-radio-group-item value="WE">Weekend</calcite-radio-group-item>
+              </calcite-radio-group>
+            </calcite-label>
+            <calcite-label>
+              Hour Group
+              <calcite-select id="control-hourgroup-el">
+                <calcite-option label="06:00-09:59" value="06"></calcite-option>
+                <calcite-option label="10:00-14:59" value="10"></calcite-option>
+                <calcite-option label="15:00-21:59" value="15"></calcite-option>
+                <calcite-option label="22:00-05:59" value="22"></calcite-option>
+              </calcite-select>
+            </calcite-label>
+            <calcite-label>
+              Road type
+              <calcite-radio-group id="control-roadtype-el" width="full">
+                <calcite-radio-group-item value="L" checked>Large</calcite-radio-group-item>
+                <calcite-radio-group-item value="M">Medium</calcite-radio-group-item>
+                <calcite-radio-group-item value="S">Small</calcite-radio-group-item>
+              </calcite-radio-group>
+            </calcite-label>
+
+
+        </calcite-block>
+        <calcite-button color="blue" icon-end="filter" id="control-filter-button">Filter</calcite-button>
+      </calcite-panel>
+    </calcite-shell-panel>
+
+    <div id="viewDiv"></div>
+
+  </calcite-shell>
+
+</body>
+
+<script>
+  require([
+    "esri/Map",
+    "esri/views/MapView",
+    "esri/layers/FeatureLayer",
+    "esri/symbols/WebStyleSymbol",
+    "esri/Basemap",
+    "esri/rest/support/TopFeaturesQuery",
+    "esri/rest/support/TopFilter",
+    "esri/widgets/Home"
+  ], function (Map, MapView, FeatureLayer, WebStyleSymbol, Basemap, TopFeaturesQuery, TopFilter, Home) {
+
+    const defaultSym = {
+      type: "simple-fill", // autocasts as new SimpleFillSymbol()
+      outline: {
+        // autocasts as new SimpleLineSymbol()
+        color: [128, 128, 128, 0.2],
+        width: "0.5px"
+      }
+    };
+
+    const ymwhr_layer = new FeatureLayer({
+      url:
+        "https://services.arcgis.com/lA2FZKuu26Fips7U/ArcGIS/rest/services/Final_YMWHR_0511/FeatureServer/7",
+      outFields: ["*"],
+      visible: false
+    });
+
+    const map = new Map({
+      basemap: "streets-navigation-vector",
+      layers: [ymwhr_layer]
+    });
+
+    const view = new MapView({
+      container: "viewDiv",
+      map: map,
+      center: [-57, 19],
+      zoom: 3
+    });
+
+    let theCity = 'bogota';
+    let theMonth = '01';
+    let theYear = '2019';
+    let theWeekday = 'WD';
+    let theHourGroup = '06';
+    let theRoadType = 'L';
+    let theTCI = 0;
+    console.debug("City = " + theCity);
+    console.debug("Year = " + theYear);
+    console.debug("Month = " + theMonth);
+    console.debug("Weekday = " + theWeekday);
+    console.debug("Hour Group = " + theHourGroup);
+    console.debug("Road type = " + theRoadType);
+
+    const controlTCIEL = document.getElementById("control-tci-el");
+    const controlCityEl = document.getElementById("control-city-el");
+    const controlYearEl = document.getElementById("control-year-el");
+    const controlMonthEl = document.getElementById("control-month-el");
+    const controlWeekdayEl = document.getElementById("control-weekday-el");
+    const controlHourGroupEl = document.getElementById("control-hourgroup-el");
+    const controlRoadTypeEl = document.getElementById("control-roadtype-el");
+    const controlFilterButton = document.getElementById("control-filter-button");
+
+    controlTCIEL.addEventListener("calciteRadioGroupChange", async (event) => {
+      theTCI = event.target.value;
+      console.debug("TCI = " + theTCI);
+    });
+
+    controlCityEl.addEventListener("calciteSelectChange", async (event) => {
+      //if (event.target.value == 'lima' || event.target.value == 'saopaulo')
+      //theCity = 'lima|saopaulo';
+      //else
+      theCity = event.target.value;
+      console.debug("City = " + theCity);
+    });
+
+    controlYearEl.addEventListener("calciteSelectChange", async (event) => {
+      theYear = event.target.value;
+      console.debug("Year = " + theYear);
+    });
+
+    controlMonthEl.addEventListener("calciteSelectChange", async (event) => {
+      theMonth = event.target.value;
+      console.debug("Month = " + theMonth);
+    });
+
+    controlWeekdayEl.addEventListener("calciteRadioGroupChange", async (event) => {
+      theWeekday = event.target.value;
+      console.debug("Weekday = " + theWeekday);
+    });
+
+    controlHourGroupEl.addEventListener("calciteSelectChange", async (event) => {
+      theHourGroup = event.target.value;
+      console.debug("Hour Group = " + theHourGroup);
+    });
+
+    controlRoadTypeEl.addEventListener("calciteRadioGroupChange", async (event) => {
+      theRoadType = event.target.value;
+      console.debug("Road type = " + theRoadType);
+    });
+
+    controlFilterButton.addEventListener("click", async (event) => {
+      filterValues();
+    });
+
+    function filterValues() {
+      //Build the attribute to query
+      var theAttribute = 'YS_' + theMonth + '_' + theYear + '_' + theWeekday + '_' + theHourGroup + '_' + theRoadType;
+      console.debug(theAttribute);
+      //Build query
+      //var buildQuery = "region_slu = '" + theCity + "'";
+      //const getValue = "$feature.${theAttribute}";
+      console.debug(theTCI);
+      const renderer = {
+        type: "simple", // autocasts as new SimpleRenderer()
+        symbol: defaultSym,
+        label: "Indicator",
+        visualVariables: [
+          {
+            type: "color",
+            //field: theAttribute,
+            valueExpression: `
+              if (IsEmpty($feature.${theAttribute})) {
+                return $feature.${theAttribute};
+              }
+              else {
+                var theValues = Split($feature.${theAttribute},"|");
+                if (Count(theValues) > 0) {
+                  return theValues[${theTCI}];
+                }
+              }
+            `,
+            legendOptions: {
+              title: "TCI"
+            },
+            stops: [
+              {
+                value: 0,
+                color: "#E6E1FF",
+                label: "0"
+              },
+              {
+                value: 400000,
+                color: "#AA89E8",
+                label: "400000"
+              },
+              {
+                value: 1400000,
+                color: "#695291",
+                label: "3400000"
+              },
+              {
+                value: 12000000,
+                color: "#4E465C",
+                label: "12000000"
+              }
+            ]
+          }
+        ]
+      };
+
+      //Pick the right layer to draw
+      if (theCity == 'mexicocity' || theCity == 'buenosaires' || (theCity == 'lima' && theYear != "2019")) {
+        console.debug("Lima or mexico city");
+        //if (theCity == "lima|saopaulo") {
+        //  theCity = 'lima';
+        //};
+        ymwhr_layer.visible = false;
+        buildQuery = "region_slu = '" + theCity + "'";
+        mexicocity_layer.outFields = [theAttribute];
+        mexicocity_layer.definitionExpression = buildQuery;
+        mexicocity_layer.renderer = renderer;
+        mexicocity_layer.visible = true;
+
+        mexicocity_layer.queryExtent().then(function (results) {
+          // go to the extent of the results satisfying the query
+          console.debug(results);
+          view.goTo(results.extent);
+        });
+      }
+      else {
+        if (theCity == "lima" || theCity == "saopaulo") {
+          var theCity1 = 'lima|saopaulo';
+          buildQuery = "region_slu = '" + theCity1 + "'";
+          mexicocity_layer.visible = false;
+        }
+        else
+          buildQuery = "region_slu = '" + theCity + "'";
+
+        ymwhr_layer.outFields = [theAttribute];
+        ymwhr_layer.definitionExpression = buildQuery;
+        ymwhr_layer.renderer = renderer;
+        ymwhr_layer.visible = true;
+        ymwhr_layer.queryExtent().then(function (results) {
+          // go to the extent of the results satisfying the query
+          console.debug(results);
+          view.goTo(results.extent);
+        });
+      }
+
+    };
+
+  });
+</script>
